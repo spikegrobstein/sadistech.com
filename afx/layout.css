@@ -1,0 +1,121 @@
+body {
+	width: 825px;
+	background: #545e69;
+	margin: 0 auto 0 auto;
+	font-family: 'Lucida Grande', Arial, sans-serif;
+	font-size: 13px;
+}
+
+#main {
+	width: 831px;
+}
+
+/* ------------------- LAYOUT SECTIONS -------------------- */
+#top_shadow {
+	background: url('images/top_shadow.gif') no-repeat;
+	height: 22px;
+}
+
+#top_div {
+	background: url('images/top_div.gif') no-repeat;
+	height: 19px;
+}
+
+#bottom_div {
+	background: url('images/bottom_div.gif') no-repeat;
+	height: 12px;
+}
+
+#bottom_shadow {
+	background: url('images/bottom_shadow.gif') no-repeat;
+	height: 23px;
+}
+/* ------------------- END LAYOUT SECTIONS ----------------*/
+
+#header {
+	background: url('images/header.gif') repeat-y;
+	padding: 4px 25px 4px 25px;
+	height: 120px;
+}
+
+#content {
+	background: url('images/content.gif') repeat-y;
+	padding: 10px 50px 15px 35px;
+	/*height: 100%*/
+}
+
+#content p {
+	margin-left: 35px;
+	margin-right: 35px;
+}
+
+#content a {
+	color: #900;
+	text-decoration: none;
+}
+
+#content a:hover {
+	text-decoration: underline;
+}
+
+#content a:active {
+	color: black;
+	text-decoration: none;
+}
+
+#footer {
+	background: url('images/footer.gif') repeat-y;
+	padding: 7px 25px 4px 25px;
+	color: white;
+	font-size: x-small;
+	text-align: right;
+}
+
+#footer a {
+	color: white;
+	font-style: italic;
+}
+
+#footer a:active {
+	color: red;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	text-decoration: none;
+}
+
+#footer table {
+	width: 100%;
+}
+
+#footer td.left {
+	text-align: left;
+}
+
+#footer td.right {
+	text-align: right;
+}
+
+/* --------------------- GENERAL LAYOUT STUFF --------------------- */
+
+h1 {
+	font-style: italic;
+	padding-left: 24px;
+	background: url('images/h1_back.png') no-repeat;
+	color: black;
+	font-family: "Arial Black";
+	height: 44px;
+}
+
+h1:before {
+	content: "[ ";
+}
+
+h1:after {
+	content: " ]";
+}
+
+a img {
+	border: none;
+}

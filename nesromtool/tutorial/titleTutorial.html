@@ -1,0 +1,49 @@
+<html><head>
+<title>NESRomTool Titles Tutorial</title>
+</head><body bgcolor=black text=white link=red vlink=red alink=red>
+
+<center>
+
+<table cellspacing=0 cellpadding=2 width=600>
+<tr><td bgcolor=red align=center>
+<font color=black><b>NESRomTool: Working With Titles</b></font><br>
+
+<table cellspacing=0 cellpadding=4 width=100% height=100% bgcolor=black>
+<tr><td>
+<!--BEGIN CONTENT-->
+<center>
+
+Similar to MP3's id3 tags, NES ROMs have title tags.<br>
+The NESRomTool has functions for dealing with titles.<p>
+<img src="titleShot.jpg" border=1 color=white><p>
+
+To see what the title of a ROM is (if it has one), do the following:<p>
+
+<code>NESRomTool -f &lt;pathToROM&gt; -pt</code><br>
+<font color=#ff9999><i><code>[ NESRomTool -f SMB1.NES -pt ]</code></i><p></font>
+
+To set the title:<p>
+<code>NESRomTool -f &lt;pathToROM&gt; -st &lt;title&gt;</code><br>
+<font color=#ff9999><i><code>[ NESRomTool -f SMB1.NES -st "Super Mario Brothers 1" ]</code></i><p></font>
+
+
+You can also completely remove the title data:<p>
+<code>NESRomTool -f &lt;pathToROM&gt; -rt</code><br>
+<font color=#ff9999><i><code>[ NESRomTool -f SMB1.NES -rt ]</code></i></font>
+
+
+</center>
+
+<!--END CONTENT-->
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+<p>
+<a href="../index.html">Go home</a>
+<p>
+<a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=82013&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
+</center>
+
+</body></html>

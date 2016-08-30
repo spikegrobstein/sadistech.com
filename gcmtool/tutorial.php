@@ -1,0 +1,215 @@
+<html><head>
+<title>GCMTool::Tutorial</title>
+<link rel="stylesheet" type="text/css" href="gcmtool.css">
+</head><body>
+<div id=navbar>
+<h1>GCMTool</h1>
+<hr>
+<a href="index.php">About</a>
+<a href="tools.php">Tools</a>
+<a href="tutorial.php">Tutorial</a>
+<a href="screenshots.php">Screenshots</a>
+<hr width=50%>
+<a 
+href="https://sourceforge.net/project/showfiles.php?group_id=109905&package_id=118745">Download</a>
+<a href="http://sourceforge.net/projects/gcmtool/">Project Page</a>
+<hr width=50%>
+<a href="http://www.sadistech.com">Sadistech</a>
+
+<a class=banner href="http://sourceforge.net"><img  
+style="padding-top: 10;"
+src="http://sourceforge.net/sflogo.php?group_id=109905&amp;type=2"  
+width="125" height="37" border="0" alt="SourceForge.net Logo" /></a>
+</div>
+<div class=header>
+<img src="gcmtool_title.gif">
+</div>
+<div class=content>
+
+<h1>gcmtool</h1>
+<p>gcmtool is the main program in the project. It's used for working 
+directly with .gcm files. To see its full-usage, call it with the -? argument:
+
+<code>$ <b>gcmtool -?</b>          
+GCMTool 0.2.4- A utility for working with Nintendo GameCube DVD 
+images.
+        gcmtool.sourceforge.net
+
+Usage:  gcmtool [ options ] <filename>
+
+Use -? for extended usage.
+
+    Options:
+      -e &lt;source&gt; &lt;dest_dir&gt;
+        Extracts the file from &lt;source&gt; (in the GCM) to 
+&lt;dest_dir&gt; (local filesystem)<center>
+.
+.
+.
+.
+.
+.</center></code>
+
+<p>Its most basic use, it takes one argument; a gcm:</p>
+
+<code>$ <b>gcmtool d3-thug.iso</b> 
+Filename:       d3-thug.iso
+System ID:      G (Gamecube)
+Game ID:        TD
+Region:         E (USA/NTSC)
+Maker Code:     52 (Activision)
+Game Name:      Tony Hawk's Underground
+DOL offset:     125760
+Apploader:      9280
+ApploaderSize:  6452
+FST:            3159456
+File count:     2165</code>
+
+<p>The first handful of fields are self explanitory. The rest are just 
+for general info if you're gonna do some more low-level hacking.</p>
+
+<h2>Basic Usage</h2>
+
+<h3>Verbose Output</h3>
+
+<p>The -v (or --verbose) option is used to enable verbosity. Useful for 
+figuring out 
+what's going wrong or why it seems like gcmtool isn't working right (ie- 
+shows each file as it's being added or extracted).</p>
+
+<h3>Listing The Filesystem</h3>
+
+<p>the -l option (or --list) will list the filesystem of hte GCM. You 
+can 
+include extra options (such as +i (or --full-info) or +p (or 
+--full-paths) to get even more information about the files). An 
+example:</p>
+
+<code>$ <b>gcmtool --list --full-info d3-thug.iso </b>
+Filename:       d3-thug.iso
+System ID:      G (Gamecube)
+Game ID:        TD
+Region:         E (USA/NTSC)
+Maker Code:     52 (Activision)
+Game Name:      Tony Hawk's Underground
+DOL offset:     125760
+Apploader:      9280
+ApploaderSize:  6452
+FST:            3159456
+File count:     2165
+(2164)         /
+(0)             anims/
+(25)            customparks/
+19145            custom1.prk
+15000            custom10.prk
+15000            custom11.prk
+15000            custom12.prk
+15000            custom13.prk
+15000            custom14.prk
+15000            custom15.prk
+15000            custom16.prk
+15000            custom17.prk
+15000            custom18.prk
+15000            custom19.prk
+<center>.
+.
+.
+.</center></code>
+
+<p>The numbers that precede each file are the sizes, in bytes, for 
+files, or the number of children for directories.</p>
+
+<h2>Extraction</h2>
+
+<h3>Files</h3>
+
+<p>Now that you can view the filesystem of a GCM, you're ready to 
+extract. 
+You can extract the entire filesystem by typing:</p>
+
+<code>$ <b>gcmtool -e / . some_game.gcm</b></code>
+
+<p>That will create a directory called "some_game.gcm.FILES" and put the 
+filesystem in there. You can also specify a file or directory in the GCM 
+to extract and where to put it.</p>
+
+<h3>Sections</h3>
+
+<p>There are several commands for extracting various portions of a GCM, 
+for either backup purposes or to encapsulate your work on them:</p>
+
+<code>-edh, --extract-disk-header [ +f &lt;filename&gt; ]
+        Extract the disk header (boot.bin)
+
+-edhi, --extract-disk-header-info [ +f &lt;filename&gt; ]
+        Extract the disk header info (bi2.bin)
+
+-eal, --extract-apploader [ +f &lt;filename&gt; ]
+        Extract the apploader (appldr.bin)
+
+-ed, --extract-boot-dol [ +f &lt;filename&gt; ]
+        Extract the main executable DOL (boot.dol)</code>
+<p>These commands take an optional +f &lt;filename&gt; parameter where 
+you can specify a location to save them. If the parameter is omitted, it 
+uses a default filename in your current, working directory.</p>
+
+<p>See the <a 
+href="http://www.gc-linux.org/docs/yagcd/chap13.html#sec13.4">documentation</a> 
+at gc-linux.org for detailed explanations of said sections.</p>
+
+<p>You may think "Oh man, I can extract a game's DOL?!?! sweet!" but in 
+actuality, it's not very useful. The DOL itself calls on files in the 
+GCM's filesystem, so you can't just use PSUL to load the DOL and play 
+your game. In fact, the game may even seem to start, but hang with a 
+black screen.</p>
+
+<h2>Injection</h2>
+
+<h3>Files</h3>
+
+<p>You can't inject a single file due to the sheer amount of data 
+shifting that needs to be done, and there's really no reason to just put 
+one in. Also, it's not like you don't have 2 minutes to spare whilst the 
+thing rebuilds the entire filesystem, so suck it up.<p>
+
+<p>To rebuild the filesystem use the -rfs &lt;path&gt; argument:<p>
+
+<code>GOTTA ADD THIS...</code>
+
+<h3>Sections</h3>
+
+<p>You can inject several sections of a GCM with the following 
+commands.</p>
+
+<code>-idh, --inject-disk-header [ +f <filename> ]
+        Inject the disk header
+
+-idhi, --inject-disk-header-info [ +f <filename> ]
+        Inject the disk header info
+
+-id, --inject-boot-dol [ +f <filename> ]
+        Inject the main executable DOL</code>
+
+<p>Currently, you can't inject the apploader due to limitations of the 
+knowlege of GCM files (there's some data that comes after the apploader 
+that may cause strange results if shifted).</p>
+
+<p>Also, newly added to 0.2.4 is the ability to rebuild the filesystem 
+of a GCM. It works by replacing the filesystem in its entirety.</p>
+
+<code>$ <b>gcmtool -rfs some_files my_game.gcm</b></code>
+
+<p>Good for when you need to modify a large quantity of files, delete 
+files, or add files. Also very useful for reducing the size of a GCM, 
+since it doesn't write all of the zeros that are usually used as padding 
+in retail games. Future versions of gcmtool may support adding the 
+padding.</p>
+
+</div>
+<div class=footer>
+&copy;2004 Sadistech.com<br>
+Nintendo, GameCube and the GameCube logo are property of
+<a href="http://nintendo.com">Nintendo</a><br>
+Anything not mentioned here is property of their respective owners.
+</div>
+</body></html>

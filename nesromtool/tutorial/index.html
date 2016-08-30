@@ -1,0 +1,90 @@
+<html><head>
+<title>NESRomTool Tutorial</title>
+</head><body bgcolor=black text=white link=red vlink=red alink=red>
+
+<center>
+
+<table cellspacing=0 cellpadding=2 width=600>
+<tr><td bgcolor=red align=center>
+<font color=black><b>NESRomTool Tutorial</b></font><br>
+
+<table cellspacing=0 cellpadding=4 width=100% height=100% bgcolor=black>
+<tr><td>
+<center>
+
+This is a brief rundown of the steps necessary for opening the extracted sprites in photoshop.<p>
+I'll put together a tutorial on putting them back in later tonight possibly.<p>
+
+<i>(<a href="NESPhotoshopKit.sit">Here</a> is a little kit including a swatch library of possible NES colors and some helpful actions)</i>
+
+<hr>
+<p>
+<b>STEP 1</b><hr>
+<img src="step1.jpg"><p>
+
+Fire up your terminal and run the tool on your ROM:<br>
+<code>./NESRomTool &lt;filename&gt; -xs &lt;chrIndex&gt; &lt;spritIndex&gt; &lt;toFile&gt;</code><p>
+
+It will extract from the ROM <code>&lt;filename&gt;</code> and put it into <code>&lt;toFile&gt;</code><p>
+<i>(Remember that <code>&lt;toFile&gt;</code> should have the .raw extension)</i>
+
+<p>
+<hr width=75%><p>
+<b>STEP 2</b>
+<hr>
+<img src="step2.jpg"><p>
+
+Fire up Photoshop and select the .raw file you extracted.<p>
+
+<hr width=75%><p>
+<b>STEP 3</b>
+<hr>
+<img src="step3.jpg"><p>
+
+Set your settings as shown...<p>
+
+<hr width=75%><p>
+<b>STEP 4</b>
+<hr>
+<img src="step4.jpg"><p>
+
+Set the color mode to "Indexed Color"<p>
+<i>(Image>Mode>Indexed Color)</i><p>
+
+<hr width=75%><p>
+<b>STEP 5</b>
+<hr>
+<img src="step5.jpg"><p>
+
+Select "Color Table..." from the Mode submenu to bring up the color table window...<p>
+
+<hr width=75%><p>
+<b>STEP 6</b>
+<hr>
+<img src="step6.jpg"><p>
+
+Set the first 4 colors to whatever you want (the rest of the colors are unused).<p>
+<i>You can click and drag over the first 4 boxes, then pick a start and end color. Photoshop will interpolate the colors in between.</i><p>
+
+<hr width=75%><p>
+<b>STEP 7</b>
+<hr>
+<img src="step7.jpg"><p>
+
+There you have it, a sprite! Have fun editing!<p>
+
+When you're done, you just save the file as raw again from Photoshop and you can inject it back into the ROM like:<p>
+<code>./NESRomTool &lt;filename&gt; -is &lt;chrIndex&gt; &lt;spritIndex&gt; &lt;fromFile&gt;</code><p>
+</center>
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+<p>
+<a href="../index.html">Go home</a>
+<p>
+<a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=82013&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
+</center>
+
+</body></html>

@@ -1,0 +1,159 @@
+body {
+	background-image: url(gcbig_black.gif);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: left top;
+	background-color: #333333;
+	font-family: 'Lucida Grande', Arial, sans-serif;
+	font-size: 13px;
+	width: 700;
+	color: white;
+}
+
+hr {
+	color: purple;
+}
+
+div.header {
+	border: 1px solid purple;
+	border-bottom: none;
+	margin: 0px;
+	padding: 0px;
+	width: 550px;
+}
+
+div.content {
+	background-image: url(gcbig_darkgray.gif);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: left top;
+	background-color: black;
+	width: 550px;
+	min-wdith: 550px;
+	max-width: 550px;
+	min-height: 100px;
+	border-style: solid;
+	border-width: 1;
+	border-color: purple;
+	border-bottom: none;
+	border-top: none;
+	margin: 0px;
+	padding: 10px 0 10px 0;
+}
+
+.content h1 {
+	text-align: left;
+	margin: 10px;
+	margin-top: 0px;
+}
+
+.content h2 {
+	text-align: center;
+}
+
+h3 {
+	margin-left: 10px;
+}
+
+div.footer {
+	width: 550px;
+	background: #888888;
+	border: 1px solid purple;
+	color: black;
+	font-style: italic;
+	font-size: 10px;
+	text-align: center;
+	margin: 0;
+}
+
+div#navbar {
+	background-color: black;
+	color: black;
+	border: 1px solid purple;
+	width: 140px;
+	position: absolute;
+	left: 570;
+}
+
+#navbar a, #navbar a:visited {
+	color: white;
+	border: solid 1px purple;
+	background: black;
+	margin: 1px;
+	margin-bottom: 3px;
+	padding: 3px;
+	padding-left: 15px;
+	display: block;
+	text-decoration: none;
+}
+
+#navbar a:active {
+	background: black;
+	color: purple;
+}
+
+#navbar a:hover {
+	background: #333333;
+}
+
+#navbar h1 {
+	font-weight: boldest;
+	font-family: "arial black", "arial", san-serif;
+	font-size: 20px;
+	text-align: center;
+	color: white;
+	margin: 0px;
+	margin-bottom: -6px;
+}
+
+#navbar a.banner {
+	margin: 0;
+	margin-bottom: 10px;
+	padding: 0;
+	display: block;
+	border: none;
+	background: black;
+	text-align: center;
+}
+
+#navbar .banner a:hover {
+	background: black;
+}
+
+code {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
+	display: block;
+	background-color: #333333;
+	font-size: 12px;
+	white-space: pre;
+	font-family: courier, monospace;
+	position: relative;
+	/*left: 40;*/
+	width: 450px;
+	border: dashed gray 1px;
+	padding: 5px;
+}
+
+p {
+	text-align: left;
+	padding-left: 20;
+	padding-right: 20;
+}
+
+div.linkset {
+	text-align: center;
+	padding-bottom: 10;
+}
+
+a, a:visited, a:active {
+	font-weight: bold;
+	color: purple;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+

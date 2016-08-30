@@ -1,0 +1,253 @@
+<html><head>
+<title>NESRomTool::NES ROM Quickstart</title>
+</head><body bgcolor=black text=white link=red vlink=red alink=red>
+
+<center>
+
+<table cellspacing=0 cellpadding=2 width=600>
+<tr><td bgcolor=red align=center>
+<font color=black><b>NES ROM Quickstart</b></font><br>
+
+<table cellspacing=0 cellpadding=4 width=100% height=100% bgcolor=black>
+<tr><td>
+The purpose of this document is to describe the setup and anatomy of a Nintendo 
+(NES) ROM (.nes) file. It assumes an understanding of basic binary file handling 
+(offsets, etc), hexadecimal notation, and binary. I can't take credit for this 
+information, although it is all my wording. Thanks goes to all you crazies who 
+wrote guides, even if you had no idea what you were talking about. ;)<p>
+
+Any errors or omissions or general comments should be directed to <a href="mailto:spike@sadistech.com">myself</a>.<p>
+
+First, some terminology:<br>
+
+<center>
+<table width=95%><tr><td>
+</td></tr></table>
+</center>
+
+<b>Header:</b><br>
+<center>
+<table width=95%><tr><td>
+Every .nes file has a 16 byte header. The first 4 characters 
+are <code>NES\0x01a</code>. Offsets <font color=lightblue>4</font> and <font color=lightblue>5</font> 
+specify the number of PRG and CHR banks, respectively.<p>
+</td></tr></table>
+</center>
+
+<b>Bank:</b><br>
+<center>
+<table width=95%><tr><td>
+Data is stored in blocks called <b>banks</b>. Each type of data has a specific size of block that it's stored in. 
+If it doesn't fill the block, the remaining space is filled with zeros.<p>
+</td></tr></table>
+</center>
+
+<b>PRG:</b><br>
+<center>
+<table width=95%><tr><td>
+Program data. All ROMs must contain at least one bank of <b>PRG</b> data. This is the executable 
+code that is stored for games/ demos. Each bank is exactly <font color=lightblue>16K</font> 
+<i>(<font color=lightblue>16384</font> bytes)</i><p>
+</td></tr></table>
+</center>
+
+<b>CHR:</b><br> 
+<center>
+<table width=95%><tr><td>
+Character data. Here be sprites. <b>CHR</b> data is just a block of sprites. 
+Each CHR bank can contain up to <font color=lightblue>512</font> sprites. Since <b>CHR</b> banks are <font color=lightblue>8K</font> each 
+<i>(<font color=lightblue>8192</font> bytes)</i>, you can understand that each sprite is stored in <font color=lightblue>16</font> bytes, 
+which brings us to our next topic. A ROM may not have any <b>CHR</b> banks (ie 
+Zelda, Contra), ROMs such as these have the sprites stored in the PRG 
+banks. I haven't yet looked into extraction from there.<p>
+</td></tr></table>
+</center>
+
+<b>Sprites:</b><br>
+<center>
+<table width=95%><tr><td>
+A <b>sprite</b> is stored in a ROM file in the CHR bank. Again, there can 
+be up to <font color=lightblue>512</font> sprites per bank. Each sprite is an <font color=lightblue>8x8</font> pixel tile. I 
+will explain how the sprite data is stored in the ROM later in 
+this text. Characters, when drawn on-screen in a game, are usually 
+made up of several tiles (Mario, in Super Mario Brothers 1, for instance, 
+when super-sized, is made up of 2 columns of 4 tiles for a total of 8).<p>
+</td></tr></table>
+</center>
+
+<b>Title data:</b><br>
+<center>
+<table width=95%><tr><td>
+<b>Title data</b> is similar to ID3 tags in mp3 files- meta data to 
+give a more desciptive title for the ROM and to protect against a filename 
+change. It's a block of data <i>(<font color=lightblue>128</font> bytes)</i> that's appended to the end of a 
+ROM. If the title that is attached to a ROM is less than <font color=lightblue>128</font> bytes, the 
+remaining block is filled with zeros. <i>Title data is OPTIONAL</i><p>
+</td></tr></table>
+</center>
+<center>
+<hr width=50%>
+</center>
+
+<b>Diagram:</b><p>
+
+<center>
+<table width=400 cellpadding=1 cellspacing=1><tr><td bgcolor=white>
+<table width=100% height=100% cellspacing=1 cellpadding=1>
+<tr bgcolor=#111111><td align=center>4</td><td align=center>4</td><td align=center>4</td><td align=center>4</td></tr>
+
+<tr bgcolor=222200>
+<td align=center>NES\0x01a</td>
+<td align=center><font color=#FF55FF>[PC]</font><font color=#ffff55> [CC]</font> X X</td>
+<td align=center>X X X X</td>
+<td align=center>X X X X</td>
+</tr>
+
+<tr bgcolor=#220022 height=150>
+<td colspan=4 align=center valign=middle>PRG Bank</td>
+</tr>
+
+<tr bgcolor=#220022 height=150>            
+<td colspan=4 align=center valign=middle>PRG Bank</td>
+</tr>
+
+<tr bgcolor=#222200 height=75>
+<td colspan=4 align=center valign=middle>CHR Bank</td>
+</tr>
+
+<tr bgcolor=#220000 height=50>
+<td colspan=4 align=center valign=middle>Title Data</td>
+</tr>
+
+</table>
+</td></tr></table>
+
+<p>
+
+<table bgcolor=white cellpadding=1 cellspacing=0><tr><td align=center>
+<font color=black><b>KEY:</b></font>
+<table bgcolor=black>
+<tr><td align=center>  
+<font color=#FF55FF>[PC]</font> PRG Count: number of PRG Banks<br>
+<font color=#ffff55>[CC]</font> CHR Count: number of CHR Banks
+</td><tr>
+</table>
+</td></tr></table>
+
+<hr width=50%><p>
+</center>
+
+<b>Sprites:</b><br>
+<center>
+<table width=95%><tr><td>
+Sprites are 8x8 pixel bitmap graphics stored in 16 byte blocks in the CHR 
+data banks. Those 16 bytes are stored as 2 channels of 8 bytes each. Since 
+a byte is 8 bits, each byte of the channel represents one row of the 
+sprite.<p>
+
+When the channels are combined, channel B has a "weight" of 2. Gander at this Truth table-like diagram 
+of how to determine the composite image (ChannelA, ChannelB, Composite):<p>
+
+<center>
+<table border=1 width=100>
+<tr>
+<td align=center><b>A</b></td><td align=center><b>B</b></td><td align=center bgcolor=ffff00><font color=black><b>C</b></font></td>
+</tr>
+<tr>
+<td align=center>0</td><td align=center>0</td><td align=center bgcolor=ffff00><font color=black>0</font></td>
+</tr>
+<tr>
+<td align=center>1</td><td align=center>0</td><td bgcolor=ffff00 align=center><font color=black>1</font></td>
+</tr>
+<tr>
+<td align=center>0</td><td align=center>1</td><td bgcolor=ffff00 align=center><font color=black>2</font></td>
+</tr>
+<tr>
+<td align=center>1</td><td align=center>1</td><td bgcolor=ffff00 align=center><font color=black>3</font></td>
+</tr>
+</table>
+</center>
+<p>
+
+I hope that makes sense. ;) It's the only way I can think of explaining 
+this. No other guides really do a decent job of explaining this. If you've 
+got any experience with neural computing, this should be a piece of cake. 
+:P<p>
+
+ChannelA is the first 8 bytes, ChannelB is the second.<p>
+
+Brief example of how sprites are stored in a ROM file:<p>
+
+How it looks in hex:<br>
+<code>
+<center>
+<table border=0><tr>
+<td bgcolor=black>
+F0 F0 F0 F0  0F 0F 0F 0F</td><td bgcolor=black>00 00 FF FF  00 00 FF FF
+</td>
+<tr>
+<td bgcolor=#222222 align=center><font size=-1>Channel A</font></td>
+<td bgcolor=#222222 align=center><font size=-1>Channel B</font></td>
+</tr></table>
+</center>
+</code><p>
+
+All you have to do is look at the binary representation of that data and 
+apply the above truth table to it.<p>
+
+<center>
+<table bgcolor=black cellpadding=4 border=1>
+<tr>
+<td align=center><b>Channel A</b></td><td align=center><b>Channel B</b></td><td bgcolor=#ffff00 align=center><b><font color=black>Composite</font></b></td>
+</tr>
+<tr>
+<td align=center>11110000</td><td align=center>00000000</td><td align=center><font color=red>1111</font><font color=white>0000</font></td>
+</tr>
+<tr>
+<td align=center>11110000</td><td align=center>00000000</td><td align=center><font color=red>1111</font><font color=white>0000</font></td>
+</tr>
+<tr>
+<td align=center>11110000</td><td align=center>11111111</td><td align=center><font color=blue>3333</font><font color=green>2222</font></td>
+</tr>
+<tr>
+<td align=center>11110000</td><td align=center>11111111</td><td align=center><font color=blue>3333</font><font color=green>2222</font></td>
+</tr>
+<tr>
+<td align=center>00001111</td><td align=center>00000000</td><td align=center><font color=white>0000</font><font color=red>1111</font></td>
+</tr>
+<tr>
+<td align=center>00001111</td><td align=center>00000000</td><td align=center><font color=white>0000</font><font color=red>1111</font></td>
+</tr>
+<tr>
+<td align=center>00001111</td><td align=center>11111111</td><td align=center><font color=green>2222</font><font color=blue>3333</font></td>
+</tr>
+<tr>
+<td align=center>00001111</td><td align=center>11111111</td><td align=center><font color=green>2222</font><font color=blue>3333</font></td>
+</tr>
+
+</table>
+</center>
+<p>
+Assuming colors 0 through 3 are black, red, green, and blue, respectively, 
+this example composite should look like a series of rectangles in the 
+different colors.<p>
+
+Generally where the 0s are in the composite, it will be transparent. Color 
+palettes seem to be generated on the fly, so I'm not sure how to find out 
+exactly what colors are used for graphics and when.<p>
+</td></tr></table>
+</center>
+
+<!--end main section... there be dragons here!-->
+</td></tr>
+</table>
+</center>
+</td></tr>
+</table>
+<p>
+<a href="index.html">Go home</a>
+<p>
+<a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=82013&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
+</center>
+
+</body></html>
